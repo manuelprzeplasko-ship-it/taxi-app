@@ -18,7 +18,10 @@ window.initMap = initMap;
 document.getElementById("calcBtn").addEventListener("click", () => {
     const start = document.getElementById("start").value;
     const end = document.getElementById("end").value;
-    const rate = parseFloat(document.getElementById("vehicle").value);
+
+    const vehicleSelect = document.getElementById("vehicle");
+    const rate = parseFloat(vehicleSelect.value);
+    const baseFee = parseFloat(vehicleSelect.options[vehicleSelect.selectedIndex].dataset.base);
 
     if (!start || !end) {
         alert("Wpisz pełne adresy!");
@@ -37,7 +40,7 @@ document.getElementById("calcBtn").addEventListener("click", () => {
 
             const distanceMeters = result.routes[0].legs[0].distance.value;
             const distanceKm = distanceMeters / 1000;
-            const price = distanceKm * rate;
+            const price = distanceKm * rate + baseFee;
 
             document.getElementById("output").innerHTML =
                 `Dystans: ${distanceKm.toFixed(2)} km<br>Cena: ${price.toFixed(2)} zł`;
