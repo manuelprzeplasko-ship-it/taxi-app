@@ -2,33 +2,41 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Taxi</title>
+    <title>Kalkulator Taxi z Mapą</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+
+    <!-- ŁADOWANIE GOOGLE MAPS JAVASCRIPT API -->
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBo7fxKQB3dTjyyn0sn5M4wOOIz0KDboYw&libraries=places">
+    </script>
 </head>
 <body>
 
-<div class="container">
-    <h2>Kalkulator Taxi</h2>
+<h2>Kalkulator Taxi</h2>
 
+<div class="form">
     <label>Pojazd:</label>
     <select id="vehicle">
-        <option value="bmw">BMW Premium</option>
-        <option value="van">VAN / BUS</option>
-        <option value="normal">Zwykłe pojazdy</option>
+        <option value="2.50">BMW Premium</option>
+        <option value="2.00">Toyota Hybrid</option>
+        <option value="1.80">Standard</option>
     </select>
 
     <label>Skąd:</label>
-    <input type="text" id="from" placeholder="np. Wrocławska 10, Legnica">
+    <input id="start" type="text" placeholder="np. Wrocławska 10, Legnica">
 
     <label>Dokąd:</label>
-    <input type="text" id="to" placeholder="np. Złotoryjska 20, Legnica">
+    <input id="end" type="text" placeholder="np. Złotoryjska 20, Legnica">
 
-    <button onclick="calculate()">Oblicz kurs</button>
-
-    <div id="result"></div>
+    <button id="calcBtn">Oblicz kurs</button>
 </div>
 
-<script src="script.js"></script>
+<h3>Wynik:</h3>
+<div id="output"></div>
+
+<!-- MAPA -->
+<div id="map"></div>
+
 </body>
 </html>
