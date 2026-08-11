@@ -1,9 +1,4 @@
-Piotr Przeplasko
-	
-20:31 (1 minutę temu)
-	
-	
-do mnie
+
 async function getDistance(origin, destination) {
     const apiKey = "AIzaSyBo7fxKQB3dTjyyn0sn5M4wOOIz0KDboYw"; 
 
