@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Taxi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Kalkulator Taxi</h2>
+
+    <label>Pojazd:</label>
+    <select id="vehicle">
+        <option value="bmw">BMW Premium</option>
+        <option value="van">VAN / BUS</option>
+        <option value="normal">Zwykłe pojazdy</option>
+    </select>
+
+    <label>Skąd:</label>
+    <input type="text" id="from" placeholder="np. Wrocławska 10, Legnica">
+
+    <label>Dokąd:</label>
+    <input type="text" id="to" placeholder="np. Złotoryjska 20, Legnica">
+
+    <button onclick="calculate()">Oblicz kurs</button>
+
+    <div id="result"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
