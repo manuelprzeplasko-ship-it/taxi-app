@@ -2,41 +2,83 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Kalkulator Taxi z Mapą</title>
+    <title>PIKER Taxi</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 
-    <!-- ŁADOWANIE GOOGLE MAPS JAVASCRIPT API -->
+    <!-- GOOGLE MAPS -->
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBo7fxKQB3dTjyyn0sn5M4wOOIz0KDboYw&callback=initMap&libraries=places">
     </script>
 </head>
+
 <body>
 
-<h2>Kalkulator Taxi</h2>
+    <!-- NAGŁÓWEK Z LOGO -->
+    <header class="app-header">
+        <img src="logo-piker.png" class="logo">
+        <h1>PIKER TAXI</h1>
+        <p class="subtitle">PRZEWOZY OSOBOWE</p>
+    </header>
 
-<div class="form">
-    <label>Pojazd:</label>
-    <select id="vehicle">
-        <option value="7" data-base="30">BMW Premium</option>
-        <option value="5" data-base="8">Toyota Hybrid</option>
-        <option value="4" data-base="8">Standard</option>
-    </select>
+    <!-- KARTY POJAZDÓW -->
+    <section class="vehicle-cards">
 
-    <label>Skąd:</label>
-    <input id="start" type="text" placeholder="np. Wrocławska 10, Legnica">
+        <div class="card">
+            <div class="card-left">
+                <h2>BMW Premium</h2>
+                <p>Najwyższy komfort</p>
+            </div>
+            <div class="card-right">
+                <img src="logo-piker.png" class="mini-logo">
+            </div>
+        </div>
 
-    <label>Dokąd:</label>
-    <input id="end" type="text" placeholder="np. Złotoryjska 20, Legnica">
+        <div class="card">
+            <div class="card-left">
+                <h2>Taryfa 2</h2>
+                <p>Ekonomiczny i cichy</p>
+            </div>
+            <div class="card-right">
+                <img src="logo-piker.png" class="mini-logo">
+            </div>
+        </div>
 
-    <button id="calcBtn">Oblicz kurs</button>
-</div>
+        <div class="card">
+            <div class="card-left">
+                <h2>Taryfa 1</h2>
+                <p>Najlepsza cena</p>
+            </div>
+            <div class="card-right">
+                <img src="logo-piker.png" class="mini-logo">
+            </div>
+        </div>
 
-<h3>Wynik:</h3>
-<div id="output"></div>
+    </section>
 
-<!-- MAPA -->
-<div id="map"></div>
+    <!-- FORMULARZ -->
+    <div class="form">
+        <label>Pojazd:</label>
+        <select id="vehicle">
+            <option value="7" data-base="30">BMW Premium</option>
+            <option value="5" data-base="8">Taryfa 2</option>
+            <option value="4" data-base="8">Taryfa 1</option>
+        </select>
+
+        <label>Skąd:</label>
+        <input id="start" type="text" placeholder="np. Wrocławska 10, Legnica">
+
+        <label>Dokąd:</label>
+        <input id="end" type="text" placeholder="np. Złotoryjska 20, Legnica">
+
+        <button id="calcBtn">Oblicz kurs</button>
+    </div>
+
+    <h3>Wynik:</h3>
+    <div id="output"></div>
+
+    <!-- MAPA -->
+    <div id="map"></div>
 
 </body>
 </html>
