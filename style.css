@@ -16,8 +16,8 @@ body {
 }
 
 .logo {
-    width: 180px;
-    margin-bottom: 10px;
+    width: 300px;
+    margin-bottom: 20px;
 }
 
 .subtitle {
@@ -55,8 +55,8 @@ body {
 }
 
 .mini-logo {
-    width: 60px;
-    opacity: 0.9;
+    width: 140px;
+    opacity: 1;
 }
 
 /* FORMULARZ */
