@@ -45,6 +45,26 @@ body {
     cursor: pointer;
 }
 
+.change-tag {
+    font-size: 22px;
+    color: #f1c40f;
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    animation: pulse 1.8s infinite;
+    opacity: 0.9;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+}
+
+.card {
+    position: relative;
+}
+
 .card-left h2 {
     font-size: 34px;          /* DUŻY TEKST */
     margin: 0;
