@@ -1,84 +1,148 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <title>PIKER Taxi</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-
-    <!-- GOOGLE MAPS -->
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBo7fxKQB3dTjyyn0sn5M4wOOIz0KDboYw&callback=initMap&libraries=places">
-    </script>
+<meta charset="UTF-8">
+<title>Rozliczenie kierowcy – PIKER TAXI</title>
+<style>
+body {
+    font-family: Arial;
+    background: #f2f2f2;
+    padding: 0;
+    margin: 0;
+}
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    margin: auto;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+input {
+    width: 100%;
+    padding: 8px;
+    margin: 4px 0 12px 0;
+    font-size: 16px;
+}
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+.row {
+    display: flex;
+    gap: 20px;
+}
+.col {
+    flex: 1;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+button {
+    padding: 12px 20px;
+    font-size: 18px;
+    margin-top: 20px;
+}
+.result {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+</style>
 </head>
-
 <body>
 
-    <!-- NAGŁÓWEK Z LOGO -->
-    <header class="app-header">
-        <img src="piker.jpg" class="logo">
-        <h1>PIKER TAXI</h1>
-        <p class="subtitle">PRZEWOZY OSOBOWE</p>
-    </header>
+<div class="page">
 
-    <!-- KARTY POJAZDÓW -->
-    <section class="vehicle-cards">
-
-    <!-- BMW PREMIUM -->
-    <div class="card" onclick="selectVehicle('BMW Premium')">
-        <div class="change-tag">Zmień</div>
-        <div class="card-left">
-            <h2>BMW Premium</h2>
-            <p>Najwyższy komfort</p>
-        </div>
-        <img src="piker.jpg" class="mini-logo">
+<div class="top">
+    <div>
+        <label>Imię kierowcy:</label>
+        <input id="name" type="text">
     </div>
-
-    <!-- TARYFA 2 -->
-    <div class="card" onclick="selectVehicle('Taryfa 2')">
-        <div class="change-tag">Zmień</div>
-        <div class="card-left">
-            <h2>Taryfa 2</h2>
-            <p>Nocna, święta i niedziele</p>
-        </div>
-        <img src="piker.jpg" class="mini-logo">
+    <div>
+        <label>Data:</label>
+        <input id="date" type="date">
     </div>
+</div>
 
-    <!-- TARYFA 1 -->
-    <div class="card" onclick="selectVehicle('Taryfa 1')">
-        <div class="change-tag">Zmień</div>
-        <div class="card-left">
-            <h2>Taryfa 1</h2>
-            <p>Dzienna 6–22</p>
-        </div>
-        <img src="piker.jpg" class="mini-logo">
-    </div>
+<h2>Rozliczenie kierowcy</h2>
 
-    </section>
+<label>BOLT</label>
+<input id="bolt" type="number" placeholder="Kwota z aplikacji">
+<label>POŁOWA BOLT</label>
+<input id="halfBolt" type="number" readonly>
 
-    <!-- FORMULARZ -->
-    <div class="form">
-        <label>WYBIERZ TARYFĘ:</label>
-        <select id="vehicle">
-            <option value="7" data-base="30">BMW Premium</option>
-            <option value="5" data-base="8">Taryfa 2</option>
-            <option value="4" data-base="8">Taryfa 1</option>
-        </select>
+<label>GOTÓWKA</label>
+<input id="cash" type="number">
 
-        <label>Skąd:</label>
-        <input id="start" type="text" placeholder="np. Wrocławska 10, Legnica">
+<label>NAPIWKI</label>
+<input id="tips" type="number">
 
-        <label>Dokąd:</label>
-        <input id="end" type="text" placeholder="np. Złotoryjska 20, Legnica">
+<label>PALIWO</label>
+<input id="fuel" type="number">
+<label>POŁOWA PALIWA</label>
+<input id="halfFuel" type="number" readonly>
 
-        <button id="calcBtn">Oblicz kurs</button>
-    </div>
+<label>POZA APK</label>
+<input id="outside" type="number">
+<label>POŁOWA POZA APK</label>
+<input id="halfOutside" type="number" readonly>
 
-    <h3>Wynik:</h3>
-    <div id="output"></div>
+<label>ZUS / PODATKI</label>
+<input id="tax" type="number" value="65">
 
-    <!-- MAPA -->
-    <div id="map"></div>
+<h3>ZAROBEK</h3>
+<div class="result" id="income"></div>
+
+<h3>OBLICZANIE GOTÓWKI</h3>
+<div class="result" id="cashCalc"></div>
+
+<h3>PODSUMOWANIE</h3>
+<div class="result" id="summary"></div>
+<div class="result" id="status"></div>
+
+<button onclick="calculate()">OBLICZ</button>
+<button onclick="window.print()">DRUKUJ</button>
+
+</div>
+
+<script>
+function calculate() {
+    let bolt = Number(document.getElementById("bolt").value);
+    let cash = Number(document.getElementById("cash").value);
+    let tips = Number(document.getElementById("tips").value);
+    let fuel = Number(document.getElementById("fuel").value);
+    let outside = Number(document.getElementById("outside").value);
+    let tax = Number(document.getElementById("tax").value);
+
+    let halfBolt = bolt / 2;
+    let halfFuel = fuel / 2;
+    let halfOutside = outside / 2;
+
+    document.getElementById("halfBolt").value = halfBolt.toFixed(2);
+    document.getElementById("halfFuel").value = halfFuel.toFixed(2);
+    document.getElementById("halfOutside").value = halfOutside.toFixed(2);
+
+    let income = halfBolt + tips + halfOutside - halfFuel - tax;
+    document.getElementById("income").innerHTML = income.toFixed(2) + " zł";
+
+    let cashCalc = cash + outside - fuel;
+    document.getElementById("cashCalc").innerHTML = cashCalc.toFixed(2) + " zł";
+
+    let summary = cashCalc - income;
+    document.getElementById("summary").innerHTML = summary.toFixed(2) + " zł";
+
+    let status = summary < 0 ? "DLA KIEROWCY" : "DLA PIKER";
+    document.getElementById("status").innerHTML = status;
+}
+</script>
 
 </body>
 </html>
